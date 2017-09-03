@@ -12,7 +12,7 @@ import android.widget.TextView;
  * Created by hadesshark on 2017/9/2.
  */
 
-public class PageContentsFragment extends PageContentsFragmentBase{
+public class PageContentsFragment extends PageContentsFragmentBase {
 
     @Nullable
     @Override
@@ -20,6 +20,7 @@ public class PageContentsFragment extends PageContentsFragmentBase{
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment, container, false);
         TextView contentTextView = (TextView) rootView.findViewById(R.id.readerText);
         String contents = ((ReaderActivity) getActivity()).getContents(PageNumber);
+        contentTextView.setPadding(30, 30, 30, 30);
         contentTextView.setText(contents);
         contentTextView.setMovementMethod(new ScrollingMovementMethod());
         return rootView;

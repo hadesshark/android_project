@@ -21,32 +21,32 @@ class PagerTask extends AsyncTask<ReaderActivity.ViewAndPaint, ReaderActivity.Pr
         ReaderActivity.ViewAndPaint vp = viewAndPaints[0];
         ReaderActivity.ProgressTracker progress = new ReaderActivity.ProgressTracker();
 
-//        TextPaint paint = vp.getPaint();
-        TextPaint paint = vp.paint;
+        TextPaint paint = vp.getPaint();
         int numChars = 0;
         int lineCount = 0;
-//        int maxLineCount = vp.getMaxLineCount();
-        int maxLineCount = vp.maxLineCount;
+        int maxLineCount = vp.getMaxLineCount();
         int totalCharactersProcessedSOFar = 0;
 
         int totalPages = 0;
 
-        while (vp.contentString != null && vp.contentString.length() != 0) {
-            while ((lineCount < maxLineCount) && (numChars < vp.contentString.length())) {
-                numChars = numChars + paint.breakText(vp.contentString.substring(numChars), true, vp.screenWidth, null);
+
+        String getContentString = vp.getContentString();
+        while (getContentString != null && getContentString.length() != 0) {
+            while ((lineCount < maxLineCount) && numChars < getContentString.length()) {
+                numChars += paint.breakText(getContentString.substring(numChars), true, vp.getScreenWidth(), null);
                 lineCount++;
             }
 
-            String stringToBeDisplayed = vp.contentString.substring(0, numChars);
+            String stringToBeDisplayed = getContentString.substring(0, numChars);
             int nextIndex = numChars;
-            int nextChar = nextIndex < vp.contentString.length() ? vp.contentString.charAt(nextIndex) : ' ';
+            int nextChar = nextIndex < getContentString.length() ? getContentString.charAt(nextIndex) : ' ';
             if (!Character.isWhitespace(nextChar)) {
                 stringToBeDisplayed = stringToBeDisplayed.substring(0, stringToBeDisplayed.lastIndexOf(" "));
             }
             numChars = stringToBeDisplayed.length();
             vp.setContentString(vp.getContentString().substring(numChars));
 
-            progress.totalPages = totalPages;
+            progress.setTotalPages(totalPages);
             progress.addPage(totalPages, totalCharactersProcessedSOFar, totalCharactersProcessedSOFar + numChars);
             publishProgress(progress);
 
