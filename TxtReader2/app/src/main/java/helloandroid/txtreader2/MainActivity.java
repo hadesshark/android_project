@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private String bookList_str[];
     private CardView cardview;
+    private FloatingActionButton faBtn_up, faBtn_down;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+
         recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -47,8 +52,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         recyclerView.setAdapter(new BookAdapter(bookList));
-
         cardview = (CardView) findViewById(R.id.card_view);
+
+        faBtn_up = (FloatingActionButton) findViewById(R.id.faBtn_up);
+        faBtn_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.smoothScrollToPosition(0);
+            }
+        });
+        faBtn_down = (FloatingActionButton) findViewById(R.id.faBtn_down);
+        faBtn_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.smoothScrollToPosition(recyclerView.getBottom());
+            }
+        });
+
     }
 
     class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {

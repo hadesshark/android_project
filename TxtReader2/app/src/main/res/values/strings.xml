@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TxtReader2</string>
+    <string name="fab_up">回到首頁</string>
+    <string name="fab_down">到最末頁</string>
 </resources>
