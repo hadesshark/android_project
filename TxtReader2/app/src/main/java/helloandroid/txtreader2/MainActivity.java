@@ -21,54 +21,57 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private String bookList_str[];
-    private CardView cardview;
     private FloatingActionButton faBtn_up, faBtn_down;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initViews();
+        recyclerViewSetting();
+        FloatingActionButtonSetting();
     }
 
-    private void initViews() {
 
-        recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        final List<Book> bookList = new ArrayList<>();
-        try {
-            bookList_str = getAssets().list("Bookstore");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for (String book_name : bookList_str) {
-            System.out.println(book_name);
-            bookList.add(new Book(book_name));
-        }
-
-        recyclerView.setAdapter(new BookAdapter(bookList));
-        cardview = (CardView) findViewById(R.id.card_view);
-
-        faBtn_up = (FloatingActionButton) findViewById(R.id.faBtn_up);
+    private void FloatingActionButtonSetting() {
         faBtn_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 recyclerView.smoothScrollToPosition(0);
             }
         });
-        faBtn_down = (FloatingActionButton) findViewById(R.id.faBtn_down);
         faBtn_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 recyclerView.smoothScrollToPosition(recyclerView.getBottom());
             }
         });
+    }
 
+    private void recyclerViewSetting() {
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        final List<Book> bookList = new ArrayList<>();
+        try {
+            bookList_str = getAssets().list("JsonBookstore");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (String book_name : bookList_str) {
+            bookList.add(new Book(book_name.substring(0, book_name.indexOf("."))));
+        }
+
+        recyclerView.setAdapter(new BookAdapter(bookList));
+    }
+
+    private void initViews() {
+        recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
+        faBtn_up = (FloatingActionButton) findViewById(R.id.faBtn_up);
+        faBtn_down = (FloatingActionButton) findViewById(R.id.faBtn_down);
     }
 
     class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {

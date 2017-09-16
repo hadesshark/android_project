@@ -4,46 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="helloandroid.txtreader2.MainActivity">
+    tools:context="helloandroid.txtreader2.MainActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
 
-    <android.support.v7.widget.RecyclerView
+
+    <include
         android:id="@+id/recyclerView"
+        layout="@layout/main_recyclerview">
 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    </include>
 
-    </android.support.v7.widget.RecyclerView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.github.clans.fab.FloatingActionMenu
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp">
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/faBtn_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_upward_black_24dp"
-                app:fab_label="@string/fab_up" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/faBtn_down"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_downward_black_24dp"
-                app:fab_label="@string/fab_down" />
-
-
-        </com.github.clans.fab.FloatingActionMenu>
-
-    </RelativeLayout>
+    <include layout="@layout/main_floating_action_menu"></include>
 
 
 </android.support.constraint.ConstraintLayout>
